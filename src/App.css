@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.material-symbols-outlined {
+  font-size: inherit !important;
+}
