@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import "./App.css";
 import { Chart } from "./Chart";
 import { DarkContext } from "./Context";
+import { Description } from "./Description";
 import { elements } from "./Element";
 import { useLocalStorage } from "./Hooks";
 import { Table } from "./Table";
@@ -21,23 +22,6 @@ function Energies() {
         <input type="number" />
       </label>
     </div>
-  );
-}
-
-function Description() {
-  return (
-    <p>
-      Calculates anomalous scattering factors (f' and f") using the{" "}
-      <a href="https://doi.org/10.1107/S0567739481000600">Cromer-Liberman</a>{" "}
-      algorithm with corrections from{" "}
-      <a href="https://doi.org/10.1107/S0108767389010718">Kissel and Pratt</a>.
-      Uses the implementation in{" "}
-      <a href="https://gemmi.readthedocs.io/en/latest/hkl.html#anomalous">
-        Gemmi
-      </a>{" "}
-      compiled to WebAssembly using{" "}
-      <a href="https://emscripten.org">Emscripten</a>.
-    </p>
   );
 }
 
@@ -75,7 +59,7 @@ function App() {
   return (
     <StrictMode>
       <DarkContext value={dark}>
-        <div className="flex flex-col items-center gap-4 p-4 text-gray-900">
+        <div className="flex flex-col items-center gap-4 p-4 max-w-2xl text-gray-900">
           <ThemeButton setDark={setDark} />
           <Energies />
           <Table elements={filtered} />
