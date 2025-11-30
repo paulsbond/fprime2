@@ -2,11 +2,6 @@ import { useEffect, useRef, useState } from "react";
 
 const hc = 12398.4197386209;
 
-const sources = [
-  { name: "Cu-Ka1", energy: 8048 },
-  { name: "Cu-Ka2", energy: 8028 },
-];
-
 function NumberInput(props: {
   label: string;
   value: string;
@@ -38,13 +33,10 @@ function SelectInput() {
       <label>
         <span className="px-2">Source</span>
         <select className="w-50 rounded-md border border-gray-400 bg-gray-100 px-2 py-1">
-          <option value="">Custom</option>
-          {sources.map((source) => (
-            <option key={source.name} value={source.energy}>
-              {source.name}
-            </option>
-          ))}
-        </select>
+          <option value={undefined}>Custom</option>
+          <option value={8048}>Cu-K&alpha;1</option>
+          <option value={8028}>Cu-K&alpha;2</option>
+          </select>
         <span className="inline-block w-5 px-2"></span>
       </label>
     </>
