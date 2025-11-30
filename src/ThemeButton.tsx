@@ -15,11 +15,11 @@ export function ThemeButton() {
 
   return (
     <button
-      aria-hidden="true"
+      aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
       className="cursor-pointer self-end"
       onClick={() => setDark((prev) => !prev)}
     >
-      <span className="material-symbols-outlined">
+      <span aria-hidden="true" className="material-symbols-outlined">
         {dark ? "light_mode" : "dark_mode"}
       </span>
     </button>
