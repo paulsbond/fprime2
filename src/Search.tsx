@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { elements } from "./Element";
 
+const defaultColors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099"];
+
 export function Search(props: {
-  colors: string[];
-  selected: number[];
-  setColors: (colors: string[]) => void;
-  setSelected: (selected: number[]) => void;
+  colors: { [z: number]: string };
+  setColors: (colors: { [z: number]: string }) => void;
 }) {
   const [value, setValue] = useState("");
 
-  const filtered = elements.filter((e) => !props.selected.includes(e.z));
+  const notSelected = elements.filter((e) => !props.colors.hasOwnProperty(e.z));
 
   function handleChange(newValue: string) {
-    const element = filtered.find((x) => x.label === newValue);
+    const element = notSelected.find((x) => x.label === newValue);
     if (element) {
-      element.color = props.colors.shift();
-      props.setColors([...props.colors]);
-      props.setSelected([...props.selected, element.z]);
+      const usedColors = Object.values(props.colors);
+      const color = defaultColors.find((c) => !usedColors.includes(c))!;
+      props.setColors({ ...props.colors, [element.z]: color });
       setValue("");
     } else {
       setValue(newValue);
@@ -26,7 +26,7 @@ export function Search(props: {
   return (
     <>
       <datalist id="elements">
-        {filtered.map((element) => {
+        {notSelected.map((element) => {
           return <option value={element.label}></option>;
         })}
       </datalist>
@@ -35,7 +35,7 @@ export function Search(props: {
         <input
           value={value}
           list="elements"
-          placeholder="Add element"
+          placeholder={value ? "" : "Add element"}
           onChange={(e) => handleChange(e.target.value)}
           className="w-56"
         />

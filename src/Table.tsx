@@ -3,15 +3,12 @@ import { IconButton } from "./IconButton";
 
 export function Table(props: {
   elements: Element[];
-  colors: string[];
-  selected: number[];
-  setColors: (colors: string[]) => void;
-  setSelected: (selected: number[]) => void;
+  colors: { [z: number]: string };
+  setColors: (colors: { [z: number]: string }) => void;
 }) {
   function handleDeselect(element: Element) {
-    props.setColors([element.color!, ...props.colors]);
-    props.setSelected(props.selected.filter((z) => z !== element.z));
-    element.color = undefined;
+    delete props.colors[element.z];
+    props.setColors({ ...props.colors });
   }
 
   return (
@@ -38,7 +35,7 @@ export function Table(props: {
                 <td>
                   <div
                     className="h-4 w-4 rounded-md"
-                    style={{ backgroundColor: element.color }}
+                    style={{ backgroundColor: props.colors[element.z] }}
                   ></div>
                 </td>
                 <td>

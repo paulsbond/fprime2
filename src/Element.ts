@@ -3,12 +3,11 @@ export class Element {
     public z: number,
     public symbol: string,
     public name: string,
-    public color?: string,
-  ) {}
-
-  get label(): string {
-    return `${this.z} - ${this.symbol} - ${this.name}`;
+  ) {
+    this.label = `${z} - ${symbol} - ${name}`;
   }
+
+  public label: string;
 }
 
 export const elements = [

@@ -13,40 +13,25 @@ import { ThemeButton } from "./ThemeButton";
 
 function App() {
   const [energy, setEnergy] = useLocalStorage("energy", 13531);
-  const [selected, setSelected] = useLocalStorage<number[]>("selected", []);
-  const [colors, setColors] = useLocalStorage("colors", [
-    "#3366cc",
-    "#dc3912",
-    "#ff9900",
-    "#109618",
-    "#990099",
-  ]);
+  const [colors, setColors] = useLocalStorage<{ [z: number]: string }>(
+    "colors",
+    {},
+  );
 
-  const filtered = elements.filter((e) => selected.includes(e.z));
+  const selected = elements.filter((e) => colors.hasOwnProperty(e.z));
 
   return (
     <StrictMode>
       <div className="m-auto flex min-h-svh max-w-2xl flex-col items-center justify-center gap-4 p-4 font-sans text-gray-900 dark:text-gray-100">
         <ThemeButton />
         <EnergyInput energy={energy} setEnergy={setEnergy} />
-        {filtered.length > 0 && (
-          <Table
-            elements={filtered}
-            colors={colors}
-            selected={selected}
-            setColors={setColors}
-            setSelected={setSelected}
-          />
+        {selected.length > 0 && (
+          <Table elements={selected} colors={colors} setColors={setColors} />
         )}
-        {filtered.length < 5 && (
-          <Search
-            colors={colors}
-            selected={selected}
-            setColors={setColors}
-            setSelected={setSelected}
-          />
+        {selected.length < 5 && (
+          <Search colors={colors} setColors={setColors} />
         )}
-        {filtered.length > 0 && <Chart />}
+        {selected.length > 0 && <Chart />}
         <Description />
       </div>
     </StrictMode>
