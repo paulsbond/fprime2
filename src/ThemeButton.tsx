@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocalStorage } from "./Hooks";
+import { IconButton } from "./IconButton";
 
 const prefersDark = () =>
   window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -14,14 +15,11 @@ export function ThemeButton() {
   }, [dark]);
 
   return (
-    <button
-      aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
-      className="cursor-pointer self-end"
+    <IconButton
+      icon={dark ? "light_mode" : "dark_mode"}
       onClick={() => setDark((prev) => !prev)}
-    >
-      <span aria-hidden="true" className="material-symbols-outlined">
-        {dark ? "light_mode" : "dark_mode"}
-      </span>
-    </button>
+      aria_label={dark ? "Switch to light theme" : "Switch to dark theme"}
+      className="self-end"
+    />
   );
 }
