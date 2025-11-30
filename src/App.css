@@ -5,3 +5,10 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  input,
+  select {
+    @apply w-50 rounded-md border border-gray-400 bg-gray-100 px-2 py-1 dark:border-gray-500 dark:bg-gray-700;
+  }
+}

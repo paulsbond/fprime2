@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
 const hc = 12398.4197386209;
-const inputClass =
-  "w-50 rounded-md border border-gray-400 bg-gray-100 dark:bg-gray-700 dark:border-gray-500 px-2 py-1";
 
 function NumberInput(props: {
   label: string;
@@ -20,7 +18,6 @@ function NumberInput(props: {
           step={props.step}
           min={0}
           onChange={(e) => props.onChange(e.target.value)}
-          className={inputClass}
         />
       </label>
     </>
@@ -37,7 +34,6 @@ function SelectInput(props: {
       <select
         value={props.value}
         onChange={(e) => props.onChange(e.target.value)}
-        className={inputClass}
       >
         <option value="">Custom</option>
         <option value="22163">Ag-K&alpha;1</option>
