@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
 const hc = 12398.4197386209;
+const inputClass =
+  "w-50 rounded-md border border-gray-400 bg-gray-100 dark:bg-gray-700 dark:border-gray-500 px-2 py-1";
 
 function NumberInput(props: {
   label: string;
   value: string;
   step: number;
-  unit?: string;
   onChange: (value: string) => void;
 }) {
   return (
@@ -19,27 +20,37 @@ function NumberInput(props: {
           step={props.step}
           min={0}
           onChange={(e) => props.onChange(e.target.value)}
-          className="w-50 rounded-md border border-gray-400 bg-gray-100 px-2 py-1"
+          className={inputClass}
         />
-        <span className="inline-block w-5 px-2">{props.unit}</span>
       </label>
     </>
   );
 }
 
-function SelectInput() {
+function SelectInput(props: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
   return (
-    <>
-      <label>
-        <span className="px-2">Source</span>
-        <select className="w-50 rounded-md border border-gray-400 bg-gray-100 px-2 py-1">
-          <option value={undefined}>Custom</option>
-          <option value={8048}>Cu-K&alpha;1</option>
-          <option value={8028}>Cu-K&alpha;2</option>
-          </select>
-        <span className="inline-block w-5 px-2"></span>
-      </label>
-    </>
+    <label>
+      <span className="px-2">Source</span>
+      <select
+        value={props.value}
+        onChange={(e) => props.onChange(e.target.value)}
+        className={inputClass}
+      >
+        <option value="">Custom</option>
+        <option value="22163">Ag-K&alpha;1</option>
+        <option value="21990">Ag-K&alpha;2</option>
+        <option value="24942">Ag-K&beta;1</option>
+        <option value="8048">Cu-K&alpha;1</option>
+        <option value="8028">Cu-K&alpha;2</option>
+        <option value="8905">Cu-K&beta;1</option>
+        <option value="17479">Mo-K&alpha;1</option>
+        <option value="17374">Mo-K&alpha;2</option>
+        <option value="19608">Mo-K&beta;1</option>
+      </select>
+    </label>
   );
 }
 
@@ -52,24 +63,27 @@ export function EnergyInput({
 }) {
   const [wText, setWText] = useState((hc / energy).toFixed(4));
   const [eText, setEText] = useState(energy.toString());
+  const [source, setSource] = useState("");
   const localUpdate = useRef(false);
 
   useEffect(() => {
-    setEText(energy.toString());
     if (localUpdate.current) {
-      // change originated here; avoid clobbering user's in-progress wavelength text
       localUpdate.current = false;
     } else {
       setWText((hc / energy).toFixed(4));
+      setEText(energy.toString());
+      setSource("");
     }
   }, [energy]);
 
   function handleWavelengthTextChange(newText: string) {
     setWText(newText);
-    const w = parseFloat(newText);
-    if (Number.isFinite(w) && w > 0) {
-      const e = Math.round(hc / w);
-      if (e > 0) {
+    setSource("");
+    if (newText === "") setEText("");
+    else {
+      const w = parseFloat(newText);
+      if (Number.isFinite(w) && w > 0) {
+        const e = Math.round(hc / w);
         localUpdate.current = true;
         setEnergy(e);
         setEText(e.toString());
@@ -79,31 +93,43 @@ export function EnergyInput({
 
   function handleEnergyTextChange(newText: string) {
     setEText(newText);
-    const e = parseFloat(newText);
-    if (Number.isFinite(e) && e > 0) {
-      localUpdate.current = true;
-      setEnergy(e);
-      setWText((hc / e).toFixed(4));
+    setSource("");
+    if (newText === "") setWText("");
+    else {
+      const e = parseFloat(newText);
+      if (Number.isFinite(e) && e > 0) {
+        localUpdate.current = true;
+        setEnergy(e);
+        setWText((hc / e).toFixed(4));
+      }
     }
+  }
+
+  function handleSourceChange(newValue: string) {
+    setSource(newValue);
+    if (newValue === "") return;
+    const e = parseInt(newValue);
+    localUpdate.current = true;
+    setEnergy(e);
+    setEText(e.toString());
+    setWText((hc / e).toFixed(4));
   }
 
   return (
     <div className="flex flex-col items-end gap-2">
       <NumberInput
-        label="Wavelength"
+        label="Wavelength / Å"
         value={wText}
         step={0.0001}
-        unit="Å"
         onChange={handleWavelengthTextChange}
       />
       <NumberInput
-        label="Energy"
+        label="Energy / eV"
         value={eText}
         step={1}
-        unit="eV"
         onChange={handleEnergyTextChange}
       />
-      <SelectInput />
+      <SelectInput value={source} onChange={handleSourceChange} />
     </div>
   );
 }
