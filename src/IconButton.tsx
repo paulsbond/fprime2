@@ -8,7 +8,7 @@ export function IconButton(props: {
     <button
       onClick={props.onClick}
       aria-label={props.aria_label}
-      className={`cursor-pointer ${props.className ?? ""}`}
+      className={props.className}
     >
       <span aria-hidden="true" className="material-symbols-outlined">
         {props.icon}

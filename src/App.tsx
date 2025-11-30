@@ -26,10 +26,18 @@ function App() {
 
   return (
     <StrictMode>
-      <div className="m-auto flex min-h-svh max-w-2xl flex-col items-center justify-center gap-4 p-4 text-gray-900 dark:text-gray-100">
+      <div className="m-auto flex min-h-svh max-w-2xl flex-col items-center justify-center gap-4 p-4 font-sans text-gray-900 dark:text-gray-100">
         <ThemeButton />
         <EnergyInput energy={energy} setEnergy={setEnergy} />
-        {filtered.length > 0 && <Table elements={filtered} />}
+        {filtered.length > 0 && (
+          <Table
+            elements={filtered}
+            colors={colors}
+            selected={selected}
+            setColors={setColors}
+            setSelected={setSelected}
+          />
+        )}
         {filtered.length < 5 && (
           <Search
             colors={colors}

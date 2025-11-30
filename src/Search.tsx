@@ -35,8 +35,9 @@ export function Search(props: {
         <input
           value={value}
           list="elements"
-          placeholder="Search elements"
+          placeholder="Add element"
           onChange={(e) => handleChange(e.target.value)}
+          className="w-56"
         />
       </label>
     </>

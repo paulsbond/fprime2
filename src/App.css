@@ -1,14 +1,27 @@
 @import "tailwindcss";
 
-.material-symbols-outlined {
-  font-size: inherit !important;
-}
-
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   input,
   select {
-    @apply w-50 rounded-md border border-gray-400 bg-gray-100 px-2 py-1 dark:border-gray-500 dark:bg-gray-700;
+    @apply w-30 rounded-md border border-gray-400 bg-gray-100 px-2 py-1 dark:border-gray-500 dark:bg-gray-700;
+  }
+
+  th,
+  td {
+    @apply px-2 py-0.5;
+  }
+
+  th {
+    @apply border-b border-b-gray-400 pb-2 dark:border-b-gray-500;
+  }
+
+  tbody tr:first-child td {
+    @apply pt-2;
+  }
+
+  .material-symbols-outlined {
+    @apply cursor-pointer align-middle text-gray-500 dark:text-gray-400;
   }
 }
