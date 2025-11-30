@@ -3,3 +3,5 @@
 .material-symbols-outlined {
   font-size: inherit !important;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));

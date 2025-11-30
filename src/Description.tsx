@@ -8,7 +8,7 @@ function Link({ href, text }: { href: string; text: string }) {
 
 export function Description() {
   return (
-    <p>
+    <p className="text-gray-500 dark:text-gray-400">
       Calculates anomalous scattering factors (f' and f") using the{" "}
       <Link href="https://doi.org/10.1107/S0567739481000600" text="Cromer-Liberman" />{" "}
       algorithm with corrections from{" "}
