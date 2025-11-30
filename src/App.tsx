@@ -26,7 +26,12 @@ function App() {
         <ThemeButton />
         <EnergyInput energy={energy} setEnergy={setEnergy} />
         {selected.length > 0 && (
-          <Table elements={selected} colors={colors} setColors={setColors} />
+          <Table
+            energy={energy}
+            selected={selected}
+            colors={colors}
+            setColors={setColors}
+          />
         )}
         {selected.length < 5 && (
           <Search colors={colors} setColors={setColors} />

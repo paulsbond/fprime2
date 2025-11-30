@@ -1,8 +1,10 @@
+import { fprime } from "./Calculate";
 import { Element } from "./Element";
 import { IconButton } from "./IconButton";
 
 export function Table(props: {
-  elements: Element[];
+  energy: number;
+  selected: Element[];
   colors: { [z: number]: string };
   setColors: (colors: { [z: number]: string }) => void;
 }) {
@@ -23,15 +25,16 @@ export function Table(props: {
         </tr>
       </thead>
       <tbody>
-        {props.elements
+        {props.selected
           .sort((a, b) => a.z - b.z)
           .map((element) => {
+            const [fp, fpp] = fprime(element.z, props.energy);
             return (
               <tr key={element.z}>
                 <td>{element.z}</td>
                 <td>{element.symbol}</td>
-                <td className="text-right">3.1233</td>
-                <td className="text-right">3.1233</td>
+                <td className="text-right">{fp.toFixed(4)}</td>
+                <td className="text-right">{fpp.toFixed(4)}</td>
                 <td>
                   <div
                     className="h-4 w-4 rounded-md"
