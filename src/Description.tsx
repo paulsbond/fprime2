@@ -8,14 +8,22 @@ function Link({ href, text }: { href: string; text: string }) {
 
 export function Description() {
   return (
-    <p className="text-gray-500 dark:text-gray-400">
+    <p className="text-gray-600 dark:text-gray-400">
       Calculates anomalous scattering factors (f' and f") using the{" "}
-      <Link href="https://doi.org/10.1107/S0567739481000600" text="Cromer-Liberman" />{" "}
+      <Link
+        href="https://doi.org/10.1107/S0567739481000600"
+        text="Cromer-Liberman"
+      />{" "}
       algorithm with corrections from{" "}
-      <Link href="https://doi.org/10.1107/S0108767389010718" text="Kissel and Pratt" />.
-      Uses the implementation in{" "}
-      <Link href="https://gemmi.readthedocs.io/en/latest/hkl.html#anomalous" text="Gemmi" />
-      {" "}
+      <Link
+        href="https://doi.org/10.1107/S0108767389010718"
+        text="Kissel and Pratt"
+      />
+      . Uses the implementation in{" "}
+      <Link
+        href="https://gemmi.readthedocs.io/en/latest/hkl.html#anomalous"
+        text="Gemmi"
+      />{" "}
       compiled to WebAssembly using{" "}
       <Link href="https://emscripten.org" text="Emscripten" />.
     </p>
