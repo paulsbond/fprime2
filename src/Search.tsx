@@ -27,7 +27,7 @@ export function Search(props: {
     <>
       <datalist id="elements">
         {notSelected.map((element) => {
-          return <option value={element.label}></option>;
+          return <option key={element.z} value={element.label}></option>;
         })}
       </datalist>
       <label className="flex items-center gap-2">
