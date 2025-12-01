@@ -36,7 +36,7 @@ function App() {
         {selected.length < 5 && (
           <Search colors={colors} setColors={setColors} />
         )}
-        {selected.length > 0 && <Chart />}
+        {selected.length > 0 && <Chart energy={energy} colors={colors} />}
         <Description />
       </div>
     </StrictMode>

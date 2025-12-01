@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "material-symbols": "^0.29.3",
+    "plotly.js": "^3.3.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-plotly.js": "^2.6.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.17",
